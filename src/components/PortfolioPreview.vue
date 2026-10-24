@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const bars = [34, 44, 39, 58, 51, 69, 63, 82, 75, 94]
-
 const stats = [
   { label: 'Active loans', value: '86' },
   { label: 'Collection rate', value: '94.2%', accent: true },
@@ -10,14 +9,14 @@ const stats = [
 
 <template>
   <div class="preview-shell">
-    <div class="preview-window">
+    <v-card class="preview-window" variant="outlined">
       <div class="preview-window__topline">
         <div class="preview-window__dots" aria-hidden="true">
           <span></span><span></span><span></span>
         </div>
         <span>Live portfolio view</span>
       </div>
-      <div class="preview-window__body">
+      <v-card-text class="preview-window__body">
         <div class="preview-window__heading">
           <div>
             <p class="eyebrow">Outstanding portfolio</p>
@@ -41,15 +40,15 @@ const stats = [
             }}</strong>
           </div>
         </div>
-        <div class="verified-payment">
-          <span class="verified-payment__icon">✓</span>
+        <v-card class="verified-payment" variant="tonal">
+          <v-avatar class="verified-payment__icon" rounded="lg" size="36">✓</v-avatar>
           <div>
             <strong>GCash payment verified</strong><span>Juan dela Cruz · Ref. 482019771</span>
           </div>
           <b>₱1,480</b>
-        </div>
-      </div>
-    </div>
+        </v-card>
+      </v-card-text>
+    </v-card>
     <div class="preview-note">
       <span>↗</span>
       <div><small>Interest calculation</small><strong>Recalculated monthly</strong></div>
@@ -148,9 +147,7 @@ const stats = [
   width: 100%;
   border-radius: 0.2rem 0.2rem 0 0;
   background: var(--line-strong);
-  transition:
-    height 0.4s ease,
-    background 0.2s ease;
+  transition: background 0.2s ease;
 }
 .bar-chart__item:hover i,
 .bar-chart__item--current {
@@ -197,12 +194,7 @@ const stats = [
   background: var(--lime-soft);
 }
 .verified-payment__icon {
-  display: grid;
-  width: 2.25rem;
-  height: 2.25rem;
   flex: 0 0 auto;
-  place-items: center;
-  border-radius: 0.55rem;
   background: var(--lime);
   color: var(--ink);
   font-weight: 800;
@@ -212,7 +204,7 @@ const stats = [
   flex: 1;
 }
 .verified-payment strong,
-.verified-payment span {
+.verified-payment div span {
   display: block;
 }
 .verified-payment strong {

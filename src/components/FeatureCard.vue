@@ -7,11 +7,11 @@ defineProps<{
 </script>
 
 <template>
-  <article class="feature-card">
+  <v-card class="feature-card" variant="text" rounded="0">
     <span class="feature-card__number">{{ number }}</span>
     <h3>{{ title }}</h3>
     <p>{{ description }}</p>
-  </article>
+  </v-card>
 </template>
 
 <style scoped>

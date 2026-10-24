@@ -11,31 +11,40 @@ defineEmits<{ enter: [] }>()
 </script>
 
 <template>
-  <button class="portal-card" :class="`portal-card--${tone}`" type="button" @click="$emit('enter')">
-    <div class="portal-card__top">
-      <span class="portal-card__icon" aria-hidden="true"
-        ><span v-if="tone === 'lime'">⌘</span><span v-else-if="tone === 'orange'">↗</span
-        ><span v-else>◌</span></span
-      ><span class="portal-card__number">{{ number }}</span>
-    </div>
-    <span class="portal-card__eyebrow">{{ eyebrow }}</span>
-    <h3>{{ title }}</h3>
-    <p>{{ description }}</p>
-    <span class="portal-card__action">Enter portal <b>→</b></span>
-  </button>
+  <v-card
+    class="portal-card"
+    :class="`portal-card--${tone}`"
+    height="100%"
+    variant="outlined"
+    hover
+    @click="$emit('enter')"
+  >
+    <v-card-text class="pa-6">
+      <div class="portal-card__top">
+        <v-avatar class="portal-card__icon" rounded="lg" size="44">
+          <v-icon
+            :icon="
+              tone === 'lime'
+                ? 'mdi-view-dashboard-outline'
+                : tone === 'orange'
+                  ? 'mdi-arrow-up-right'
+                  : 'mdi-account-outline'
+            "
+          />
+        </v-avatar>
+        <span class="portal-card__number">{{ number }}</span>
+      </div>
+      <span class="portal-card__eyebrow">{{ eyebrow }}</span>
+      <h3>{{ title }}</h3>
+      <p>{{ description }}</p>
+      <span class="portal-card__action">Enter portal <b>→</b></span>
+    </v-card-text>
+  </v-card>
 </template>
 
 <style scoped>
 .portal-card {
-  display: block;
-  width: 100%;
-  padding: 1.6rem;
-  border: 1px solid var(--line);
-  border-radius: 1rem;
-  background: var(--surface);
   color: var(--ink);
-  text-align: left;
-  cursor: pointer;
   transition:
     transform 0.25s ease,
     border-color 0.25s ease,
@@ -53,12 +62,7 @@ defineEmits<{ enter: [] }>()
   margin-bottom: 2.6rem;
 }
 .portal-card__icon {
-  display: grid;
-  width: 2.75rem;
-  height: 2.75rem;
-  place-items: center;
   border-radius: 0.75rem;
-  font-size: 1.35rem;
 }
 .portal-card--lime .portal-card__icon {
   background: var(--lime-soft);

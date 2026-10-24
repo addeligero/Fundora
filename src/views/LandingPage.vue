@@ -52,27 +52,23 @@ function scrollTo(id: string) {
 </script>
 
 <template>
-  <div class="landing-page">
+  <div class="landing-page bg-background">
     <div class="landing-page__grid" aria-hidden="true"></div>
     <header class="site-header">
-      <nav class="container site-header__nav" aria-label="Primary navigation">
+      <v-container class="site-header__nav" aria-label="Primary navigation">
         <a class="site-header__logo" href="#top" aria-label="Fundora home"><BrandMark /></a>
-        <div class="site-header__links">
-          <button type="button" @click="scrollTo('features')">Platform</button
-          ><button type="button" @click="scrollTo('portals')">Portals</button>
+        <div class="site-header__links d-none d-sm-flex">
+          <v-btn variant="text" size="small" @click="scrollTo('features')">Platform</v-btn>
+          <v-btn variant="text" size="small" @click="scrollTo('portals')">Portals</v-btn>
         </div>
-        <button
-          class="button button--dark site-header__cta"
-          type="button"
-          @click="scrollTo('portals')"
+        <v-btn color="secondary" class="site-header__cta" elevation="2" @click="scrollTo('portals')"
+          >Open demo <span>↗</span></v-btn
         >
-          Open demo <span>↗</span>
-        </button>
-      </nav>
+      </v-container>
     </header>
 
     <main id="top">
-      <section class="container hero">
+      <v-container class="hero">
         <div class="hero__copy">
           <p class="kicker"><span></span> Lending clarity for Philippine teams</p>
           <h1>Every loan.<em>One clear story.</em></h1>
@@ -81,11 +77,12 @@ function scrollTo(id: string) {
             verification, Fundora keeps every peso and every promise in view.
           </p>
           <div class="hero__actions">
-            <button class="button button--lime" type="button" @click="scrollTo('portals')">
-              Explore the workspace <span>→</span></button
-            ><button class="button button--outline" type="button" @click="scrollTo('features')">
-              See how it works
-            </button>
+            <v-btn color="primary" size="large" @click="scrollTo('portals')"
+              >Explore the workspace <span>→</span></v-btn
+            >
+            <v-btn variant="outlined" color="secondary" size="large" @click="scrollTo('features')"
+              >See how it works</v-btn
+            >
           </div>
           <div class="hero__proof">
             <span>✓</span><span>Diminishing balance</span><span>✓</span
@@ -93,15 +90,17 @@ function scrollTo(id: string) {
           </div>
         </div>
         <PortfolioPreview />
-      </section>
+      </v-container>
 
       <section id="features" class="feature-band">
-        <div class="container feature-grid">
-          <FeatureCard v-for="feature in features" :key="feature.number" v-bind="feature" />
-        </div>
+        <v-container
+          ><v-row class="feature-grid"
+            ><v-col v-for="feature in features" :key="feature.number" cols="12" md="4"
+              ><FeatureCard v-bind="feature" /></v-col></v-row
+        ></v-container>
       </section>
 
-      <section id="portals" class="container portal-section">
+      <v-container id="portals" class="portal-section">
         <div class="portal-section__heading">
           <div>
             <p class="kicker">Three views, one source of truth</p>
@@ -109,22 +108,18 @@ function scrollTo(id: string) {
           </div>
           <p>This demo opens instantly, so you can explore each experience without credentials.</p>
         </div>
-        <div class="portal-grid">
-          <PortalCard
-            v-for="portal in portals"
-            :key="portal.number"
-            v-bind="portal"
-            @enter="scrollTo('top')"
-          />
-        </div>
-      </section>
+        <v-row class="portal-grid"
+          ><v-col v-for="portal in portals" :key="portal.number" cols="12" md="4"
+            ><PortalCard v-bind="portal" @enter="scrollTo('top')" /></v-col
+        ></v-row>
+      </v-container>
     </main>
 
     <footer class="site-footer">
-      <div class="container site-footer__inner">
+      <v-container class="site-footer__inner">
         <BrandMark /><span>Philippine lending management, made clear.</span
         ><small>10% monthly · Diminishing balance · GCash + Cash</small>
-      </div>
+      </v-container>
     </footer>
   </div>
 </template>
@@ -148,9 +143,6 @@ function scrollTo(id: string) {
   --blue: #5d8bd2;
   --blue-soft: #eaf0fb;
 }
-* {
-  box-sizing: border-box;
-}
 html {
   scroll-behavior: smooth;
 }
@@ -160,9 +152,6 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: 'Manrope', sans-serif;
-}
-button {
-  font: inherit;
 }
 .landing-page {
   position: relative;
@@ -180,11 +169,6 @@ button {
     linear-gradient(90deg, rgb(188 204 190 / 20%) 1px, transparent 1px);
   background-size: 4rem 4rem;
   mask-image: linear-gradient(to bottom, black, transparent 70%);
-}
-.container {
-  position: relative;
-  width: min(100% - 3rem, 72rem);
-  margin: 0 auto;
 }
 .site-header {
   position: relative;
@@ -209,54 +193,9 @@ button {
   margin-left: auto;
   margin-right: 2.5rem;
 }
-.site-header__links button {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--muted-strong);
-  font-size: 0.82rem;
-  cursor: pointer;
-}
-.site-header__links button:hover {
-  color: var(--ink);
-}
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  min-height: 2.85rem;
-  padding: 0.7rem 1.15rem;
-  border: 1px solid transparent;
-  border-radius: 0.65rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-.button:hover {
-  transform: translateY(-0.15rem);
-}
-.button--dark {
-  background: var(--ink);
-  color: white;
-  box-shadow: 0 0.5rem 1rem rgb(24 49 42 / 12%);
-}
-.button--lime {
-  background: var(--lime);
-  color: var(--ink);
-  box-shadow: 0 0.8rem 1.5rem rgb(159 212 74 / 22%);
-}
-.button--outline {
-  border-color: var(--line-strong);
-  background: rgb(255 255 255 / 35%);
-  color: var(--ink-soft);
-}
 .hero {
   display: grid;
-  grid-template-columns: 0.98fr 1.02fr;
+  grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
   align-items: center;
   gap: clamp(3rem, 8vw, 7rem);
   min-height: 39rem;
@@ -337,13 +276,6 @@ button {
   border-bottom: 1px solid var(--line);
   background: rgb(255 255 255 / 38%);
 }
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-.feature-grid > :not(:first-child) {
-  border-left: 1px solid var(--line);
-}
 .portal-section {
   padding-top: 7rem;
   padding-bottom: 8rem;
@@ -368,11 +300,6 @@ button {
   color: var(--muted);
   font-size: 0.82rem;
   line-height: 1.7;
-}
-.portal-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
 }
 .site-footer {
   border-top: 1px solid var(--line);
@@ -422,12 +349,6 @@ button {
   }
 }
 @media (max-width: 640px) {
-  .container {
-    width: min(100% - 2rem, 72rem);
-  }
-  .site-header__links {
-    display: none;
-  }
   .site-header__cta {
     min-height: 2.5rem;
     padding-inline: 0.8rem;
@@ -440,14 +361,6 @@ button {
   }
   .hero__description {
     font-size: 0.9rem;
-  }
-  .feature-grid,
-  .portal-grid {
-    grid-template-columns: 1fr;
-  }
-  .feature-grid > :not(:first-child) {
-    border-top: 1px solid var(--line);
-    border-left: 0;
   }
   .portal-section {
     padding-top: 5rem;
